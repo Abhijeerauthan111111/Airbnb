@@ -1,0 +1,82 @@
+<%- include('../partials/head.ejs') %>
+</head>
+<body class="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 font-sans text-gray-900">
+
+    <%- include('../partials/nav.ejs') %>
+
+    <main class="container mx-auto px-6 py-16 max-w-7xl">
+
+        <!-- Page Title Section -->
+        <div class="text-center mb-16">
+            <div class="text-9xl mb-8 animate-bounce">🏡</div>
+            <h1 class="text-6xl font-extrabold bg-gradient-to-r from-rose-600 to-pink-600 bg-clip-text text-transparent mb-6">
+                Explore Your Dream Home
+            </h1>
+            <p class="text-xl text-gray-600 font-light">Find your perfect living space with ease.</p>
+        </div>
+
+        <!-- Home Card -->
+        <div class="bg-white shadow-2xl rounded-2xl overflow-hidden hover:shadow-3xl transition-all duration-500">
+            <div class="relative group">
+                <img src="<%= home.photourl %>" alt="Home Image" 
+                     class="w-full h-[500px] object-cover transition-transform duration-500 group-hover:scale-105">
+                <div class="absolute bottom-0 left-0 right-0 p-8 bg-gradient-to-t from-black/80 via-black/50 to-transparent">
+                    <h1 class="text-4xl font-bold text-white mb-3"><%= home.housename %></h1>
+                    <p class="text-yellow-400 text-xl font-semibold mb-2">⭐️ <%= home.rating %>/5</p>
+                    <p class="text-white text-lg flex items-center gap-2">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"/>
+                        </svg>
+                        <%= home.location %>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Property Details Section -->
+            <div class="p-8 space-y-8">
+                <h2 class="text-3xl font-bold text-gray-800 border-b border-gray-200 pb-4">Property Details</h2>
+
+                <!-- Description Section -->
+                <div class="bg-gray-50 p-6 rounded-xl">
+                    <div class="flex items-start gap-4">
+                        <span class="text-2xl">📋</span>
+                        <div>
+                            <h3 class="font-semibold text-xl text-gray-800 mb-3">Description</h3>
+                            <p class="text-gray-600 leading-relaxed"><%= home.description %></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Features Section -->
+                <div class="bg-gray-50 p-6 rounded-xl">
+                    <div class="flex items-start gap-4">
+                        <span class="text-2xl">✨</span>
+                        <div>
+                            <h3 class="font-semibold text-xl text-gray-800 mb-3">Features</h3>
+                            <p class="text-gray-600 leading-relaxed"><%= home.features %></p>
+                        </div>
+                    </div>
+                </div>
+
+<div class="mt-4" > 
+    <a href="/rules/<%= home._id %>" class="text-blue-500 hover:text-blue-900">House Rules </a>
+</div>
+                <!-- Pricing and Booking Button -->
+                <div class="flex justify-between items-center p-6 bg-gray-50 rounded-xl mt-8">
+                    <div class="text-3xl font-bold text-blue-600">
+                        ₹<%= home.price %>
+                    </div>
+                    <%- include('../partials/add_to_fav.ejs',{home:home}) %> 
+                </div>
+
+
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-gray-900 text-white text-center py-8 mt-16">
+        <p class="text-sm font-light">&copy; 2024 ExploreYourHome. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,44 @@
+<header class="w-full bg-white shadow-md py-4">
+        <nav class="container mx-auto flex justify-between items-center px-4">
+            <a href="/" class="text-2xl font-bold text-rose-500">Hamara AIRBNB</a>
+            <div class="flex items-center">
+                <% if(isLoggedIn) { %>
+                    <% if(user.userType==="guest") { %>
+                <a href="/homes" class="ml-4 px-4 py-2 bg-rose-500 text-white font-semibold rounded-lg hover:bg-rose-600 transition duration-200 whitespace-nowrap overflow-hidden text-ellipsis">
+                        HOMES
+                </a>
+                
+                
+                <a href="/favourites" class="ml-4 px-4 py-2 bg-rose-500 text-white font-semibold rounded-lg hover:bg-rose-600 transition duration-200 whitespace-nowrap overflow-hidden text-ellipsis">
+                    FAV
+                </a>
+
+
+                <% }else { %>
+                
+                
+                <a href="/host/add-home"  class="ml-4 px-4 py-2 bg-rose-500 text-white font-semibold rounded-lg hover:bg-rose-600 transition duration-200 whitespace-nowrap overflow-hidden text-ellipsis">
+                    ADD HOME
+                </a>
+                
+                <a href="/host/hosthome" class="ml-4 px-4 py-2 bg-rose-500 text-white font-semibold rounded-lg hover:bg-rose-600 transition duration-200 whitespace-nowrap overflow-hidden text-ellipsis">
+                    HOST HOMES
+                </a>
+                <% }%>
+
+                <form action="/logout" method="POST" class="inline-block">
+                    <input type="submit" value="LogOut" class="ml-4 px-4 py-2 bg-red-900 text-white font-semibold rounded-lg hover:bg-rose-600 transition duration-200 cursor-pointer whitespace-nowrap overflow-hidden text-ellipsis">
+                </form>
+                <% } else { %>
+                    <% if(path !== '/login' && path !== '/signup'&& path !== '/forgotpassword'&& path !== '/resetpassword') { %>
+                        <a href="/login" class="ml-4 px-4 py-2 bg-rose-500 text-white font-semibold rounded-lg hover:bg-rose-600 transition duration-200 whitespace-nowrap overflow-hidden text-ellipsis">
+                            Login
+                        </a>
+                        <a href="/signup" class="ml-4 px-4 py-2 bg-rose-500 text-white font-semibold rounded-lg hover:bg-rose-600 transition duration-200 whitespace-nowrap overflow-hidden text-ellipsis">
+                            Signup
+                        </a>
+                    <% } %>
+                <% } %>
+            </div>
+        </nav>
+    </header>
