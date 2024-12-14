@@ -6,8 +6,8 @@
 
     <main class="container mx-auto px-4 py-16">
         <div class="text-center mb-12">
-            <div class="text-9xl mb-6 animate-bounce">🏡</div>
-            <h1 class="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-rose-600 to-pink-600 mb-6">
+            <div class="text-9xl mb-8 animate-bounce filter drop-shadow-lg">🏡</div>
+            <h1 class="font-serif md:text-5xl text-2xl font-extrabold text-rose-600 md:mb-8 mb-4 tracking-tight leading-tight">
                 Your Favourite Homes
             </h1>
         </div>
@@ -30,7 +30,7 @@
                     <div class="flex justify-between items-center mt-auto pt-4 border-t border-gray-100">
                         <p class="text-2xl font-bold text-blue-600">₹<%= home.price %></p>
                         <a href="/homes/<%= home._id %>" 
-                           class="bg-gradient-to-r from-rose-500 to-pink-500 text-white font-semibold rounded-lg px-6 py-2.5 hover:from-rose-600 hover:to-pink-600 transition-all duration-300 shadow-md hover:shadow-lg">
+                           class="font-serif text-xs md:text-lg bg-gradient-to-r from-rose-500 to-pink-500 text-white font-semibold rounded-lg ml-4 px-4 py-2 hover:from-rose-600 hover:to-pink-600 transition-all duration-300 shadow-md hover:shadow-lg">
                             View Details
                         </a>
                     </div>

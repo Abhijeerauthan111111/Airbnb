@@ -1,40 +1,40 @@
 <header class="w-full bg-white shadow-md py-4">
         <nav class="container mx-auto flex justify-between items-center px-4">
-            <a href="/" class="text-2xl font-bold text-rose-500">Hamara AIRBNB</a>
+            <a href="/" class="font-serif md:text-3xl font-bold text-rose-500 text-xl">GOSTAY</a>
             <div class="flex items-center">
                 <% if(isLoggedIn) { %>
                     <% if(user.userType==="guest") { %>
-                <a href="/homes" class="ml-4 px-4 py-2 bg-rose-500 text-white font-semibold rounded-lg hover:bg-rose-600 transition duration-200 whitespace-nowrap overflow-hidden text-ellipsis">
-                        HOMES
+                <a href="/homes" class="font-serif text-xs md:text-lg bg-gradient-to-r from-rose-500 to-pink-500 text-white font-semibold rounded-lg ml-4 px-4 py-2 hover:from-rose-600 hover:to-pink-600 transition-all duration-300 shadow-md hover:shadow-lg">
+                        Homes
                 </a>
                 
                 
-                <a href="/favourites" class="ml-4 px-4 py-2 bg-rose-500 text-white font-semibold rounded-lg hover:bg-rose-600 transition duration-200 whitespace-nowrap overflow-hidden text-ellipsis">
-                    FAV
+                <a href="/favourites" class="font-serif text-xs md:text-lg bg-gradient-to-r from-rose-500 to-pink-500 text-white font-semibold rounded-lg ml-4 px-4 py-2 hover:from-rose-600 hover:to-pink-600 transition-all duration-300 shadow-md hover:shadow-lg">
+                    Fav
                 </a>
 
 
                 <% }else { %>
                 
                 
-                <a href="/host/add-home"  class="ml-4 px-4 py-2 bg-rose-500 text-white font-semibold rounded-lg hover:bg-rose-600 transition duration-200 whitespace-nowrap overflow-hidden text-ellipsis">
-                    ADD HOME
+                <a href="/host/add-home"  class="font-serif text-xs md:text-lg bg-gradient-to-r from-rose-500 to-pink-500 text-white font-semibold rounded-lg ml-4 px-4 py-2 hover:from-rose-600 hover:to-pink-600 transition-all duration-300 shadow-md hover:shadow-lg">
+                    Add+
                 </a>
                 
-                <a href="/host/hosthome" class="ml-4 px-4 py-2 bg-rose-500 text-white font-semibold rounded-lg hover:bg-rose-600 transition duration-200 whitespace-nowrap overflow-hidden text-ellipsis">
-                    HOST HOMES
+                <a href="/host/hosthome" class="font-serif text-xs md:text-lg bg-gradient-to-r from-rose-500 to-pink-500 text-white font-semibold rounded-lg ml-4 px-4 py-2 hover:from-rose-600 hover:to-pink-600 transition-all duration-300 shadow-md hover:shadow-lg">
+                    Homes
                 </a>
                 <% }%>
 
                 <form action="/logout" method="POST" class="inline-block">
-                    <input type="submit" value="LogOut" class="ml-4 px-4 py-2 bg-red-900 text-white font-semibold rounded-lg hover:bg-rose-600 transition duration-200 cursor-pointer whitespace-nowrap overflow-hidden text-ellipsis">
+                    <input type="submit" value="Logout" class="font-serif text-xs md:text-lg ml-4 px-4 py-2 bg-red-900 text-white font-semibold rounded-lg hover:bg-rose-600 transition duration-200 cursor-pointer whitespace-nowrap overflow-hidden text-ellipsis">
                 </form>
                 <% } else { %>
                     <% if(path !== '/login' && path !== '/signup'&& path !== '/forgotpassword'&& path !== '/resetpassword') { %>
-                        <a href="/login" class="ml-4 px-4 py-2 bg-rose-500 text-white font-semibold rounded-lg hover:bg-rose-600 transition duration-200 whitespace-nowrap overflow-hidden text-ellipsis">
+                        <a href="/login" class="font-serif text-xs md:text-lg bg-gradient-to-r from-rose-500 to-pink-500 text-white font-semibold rounded-lg ml-4 px-4 py-2 hover:from-rose-600 hover:to-pink-600 transition-all duration-300 shadow-md hover:shadow-lg">
                             Login
                         </a>
-                        <a href="/signup" class="ml-4 px-4 py-2 bg-rose-500 text-white font-semibold rounded-lg hover:bg-rose-600 transition duration-200 whitespace-nowrap overflow-hidden text-ellipsis">
+                        <a href="/signup" class="font-serif text-xs md:text-lg bg-gradient-to-r from-rose-500 to-pink-500 text-white font-semibold rounded-lg ml-4 px-4 py-2 hover:from-rose-600 hover:to-pink-600 transition-all duration-300 shadow-md hover:shadow-lg">
                             Signup
                         </a>
                     <% } %>

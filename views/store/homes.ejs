@@ -7,10 +7,10 @@
     <main class="container mx-auto px-4 py-16">
         <div class="text-center mb-16">
             <div class="text-9xl mb-8 animate-bounce filter drop-shadow-lg">🏡</div>
-            <h1 class="text-5xl font-extrabold text-rose-600 mb-8 tracking-tight leading-tight">
+            <h1 class="font-serif md:text-5xl text-2xl font-extrabold text-rose-600 md:mb-8 mb-4 tracking-tight leading-tight">
                 Discover Your Dream Home
             </h1>
-            <p class="text-gray-600 text-lg max-w-2xl mx-auto">Find the perfect place to call home from our carefully curated selection of beautiful properties.</p>
+            <p class="text-gray-600 md:text-lg text-xs max-w-2xl mx-auto">Find the perfect place to call home from our carefully curated selection of beautiful properties.</p>
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -39,10 +39,10 @@
 
                     <div class="flex justify-between items-center mt-auto pt-4 border-t border-gray-100">
                         <p class="text-2xl font-bold text-rose-600">₹<%= home.price %></p>
-                        <div class="flex items-center gap-3">
+                        <div class="flex items-center ">
                             <%- include('../partials/add_to_fav',{home:home}) %> 
                             <a href="/homes/<%= home._id %>" 
-                               class="bg-rose-500 hover:bg-rose-600 text-white font-semibold rounded-lg px-6 py-2.5 transition-colors duration-300 shadow-sm">
+                               class="font-serif text-xs md:text-lg bg-gradient-to-r from-rose-500 to-pink-500 text-white font-semibold rounded-lg ml-4 px-4 py-2 hover:from-rose-600 hover:to-pink-600 transition-all duration-300 shadow-md hover:shadow-lg">
                                View Details
                             </a>
                         </div>
