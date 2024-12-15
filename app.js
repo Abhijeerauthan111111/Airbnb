@@ -7,23 +7,21 @@ require("dotenv").config(
 );
 
 // //core module
-const path = require('path');
-const fs = require('fs');
+const path = require('path');   //path manipulation
+const fs = require('fs');    // file system operations
 
 
 //importing external module
 const express = require('express');
-const bodyparser = require('body-parser');
-const mongoose = require("mongoose");
-const session = require('express-session');
-const MongoDbSession = require("connect-mongodb-session");
-const multer = require("multer")
-const helmet = require("helmet")
+const bodyparser = require('body-parser');  
+const mongoose = require("mongoose"); //mongodb ORM
+const session = require('express-session');   //session management
+const MongoDbSession = require("connect-mongodb-session"); //store sessions in mongodb
+const multer = require("multer")   //handle file uploads
+const helmet = require("helmet")    //security header
 const compression = require("compression")
-const morgan = require("morgan")
+const morgan = require("morgan")    //HTTP req logger
 
-
- 
 // importing local module
 
 const storeRouter = require('./routers/storeRouter');
@@ -33,16 +31,16 @@ const rootdirectory = require('./util/pathutil');
 const errorcontroller = require('./controllers/errorcontroller');
 
 
+//mongodb session store setup
 const mongodbstore = MongoDbSession(session);
 const MONGO_DB_URL = `mongodb+srv://${process.env.MONGO_DB_USERNAME}:${process.env.MONGO_DB_PASSWORD}@airbnb.wtoi7.mongodb.net/${process.env.MONGO_DB_DATABASE}`;
-
 const sessionstore = new mongodbstore({
     uri : MONGO_DB_URL,
     collection: "sessions"
 })
 
 
-//storage of uploaded images and customized file name
+//Multer config for file uploads and customized file name
 
 const storage = multer.diskStorage({
     destination: (req,file,cb)=>{
@@ -57,7 +55,7 @@ const storage = multer.diskStorage({
 } )
 
 
-//filefilter for uploading images
+//filefilter for uploading images 
 
 const filefilter = (req,file,cb)=>{
    const isvalidfile = ['image/png','image/jpeg','image/jpg'].includes(file.mimetype);
@@ -65,14 +63,13 @@ const filefilter = (req,file,cb)=>{
    cb(null, isvalidfile);
 }
 
-
+//setupp of HTTP req logging
 const logginstream = fs.createWriteStream(path.join(rootdirectory, 'access.log'), { flags: 'a' });
 
 
-//routers
 
 
-//setting up ejs
+//setting up express app config
 const app = express();
 
 
@@ -86,44 +83,45 @@ const app = express();
 //         },
 //     })
 // );
-app.use(helmet());
-app.use(compression());
-app.use(morgan('combined',{stream : logginstream }))
+app.use(helmet());  //add security headers
+app.use(compression());   //compress all response
+app.use(morgan('combined',{stream : logginstream }))   //log http req
 
-app.set('view engine','ejs');
-app.set('views','views');
+//view engine setup
+app.set('view engine','ejs');   //ejs as template engine
+app.set('views','views');     //views directory
 
 
 //serving static files
-app.use(express.static(path.join(rootdirectory,"public")));
-app.use('/uploads' , express.static(path.join(rootdirectory,"uploads")));
+app.use(express.static(path.join(rootdirectory,"public")));   //serve static files
+app.use('/uploads',express.static(path.join(rootdirectory,"uploads")));  //serve upload files
 
 
 //Make path available 
 app.use((req, res, next) => {
-    res.locals.path = req.path;  // Makes path available in all views
+    res.locals.path = req.path;  // Makes current path path available in all views
     next();
 });
 
 
 //using body parser in middlware
+
 app.use(bodyparser.urlencoded({extended:true}));
 
 app.use(multer({storage,fileFilter:filefilter}).single("photo"));
 
-
-
-
 //using routers
 
+
+//session config
 app.use(session({
-    secret :'airbnb',
+    secret :'airbnb',   
     resave : false,
     saveUninitialized : true,
     store : sessionstore, 
 }))
 
-
+//route handler
 app.use(storeRouter);
 
 //if not logged in  it stays in login page
@@ -133,7 +131,6 @@ if(!req.session.isLoggedIn){
 }
 next();
 })
-
 
 app.use(hostrouter);
 
@@ -155,7 +152,4 @@ mongoose.connect(MONGO_DB_URL).then(()=>{
     } ).catch(err=>{
         console.log("Error while connecting to MONGODB ",err)
     }); 
-
-
-
-   
+  
