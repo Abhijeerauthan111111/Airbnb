@@ -332,19 +332,6 @@ exports.postsignup = [
       }
       ];
       
-//       catch (err) {
-      
-//          return res.status(422).render('auth/signup',{
-//             pagetitle:"Signup", 
-//             isLoggedIn:false,
-//             path: req.path,
-//             errormessages: [err.message],
-//             oldinput: req.body,
-//          })
-//       }
 
-//    }
-
-// ];
 
 
