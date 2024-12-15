@@ -308,20 +308,43 @@ exports.postsignup = [
          return res.redirect("/login")
 
       }
-      
       catch (err) {
-      
-         return res.status(422).render('auth/signup',{
-            pagetitle:"Signup", 
-            isLoggedIn:false,
-            path: req.path,
-            errormessages: [err.message],
-            oldinput: req.body,
-         })
+         // Handle duplicate email error
+         if (err.code === 11000) {
+             return res.status(422).render('auth/signup', {
+                 pagetitle: "Signup",
+                 isLoggedIn: false,
+                 path: req.path,
+                 errormessages: ["Email address already exists"],
+                 oldinput: req.body,
+             });
+         }
+         
+         // Handle other errors
+         return res.status(422).render('auth/signup', {
+             pagetitle: "Signup",
+             isLoggedIn: false,
+             path: req.path,
+             errormessages: [err.message],
+             oldinput: req.body,
+         });
       }
+      }
+      ];
+      
+//       catch (err) {
+      
+//          return res.status(422).render('auth/signup',{
+//             pagetitle:"Signup", 
+//             isLoggedIn:false,
+//             path: req.path,
+//             errormessages: [err.message],
+//             oldinput: req.body,
+//          })
+//       }
 
-   }
+//    }
 
-];
+// ];
 
 
