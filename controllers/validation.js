@@ -28,7 +28,9 @@ check('lastname')
  check('email')
     .isEmail()
     .withMessage("Please Enter a valid email")
-    .normalizeEmail();
+    .normalizeEmail({
+      gmail_remove_dots: false
+    });
     
 //password validator
 
