@@ -206,7 +206,12 @@ exports.postforgotpassword=async (req,res,next)=>{
       await user.save();
       const forgotemail = {
          to: email,
-         from: process.env.FROM_EMAIL,
+         // from: process.env.FROM_EMAIL,
+         from: {
+            name: 'GOSTAY',
+            email: process.env.FROM_EMAIL
+
+         },
          subject: "Password Reset Request - GOSTAY",
          html: `
          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
@@ -285,7 +290,12 @@ exports.postsignup = [
 
           const welcomeemail = {
             to: email,
-            from: process.env.FROM_EMAIL,
+            // from: process.env.FROM_EMAIL,
+            from: {
+               name: 'GOSTAY',
+               email: process.env.FROM_EMAIL
+
+            },
             subject: "Welcome to GOSTAY!",
             html: `
             <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
