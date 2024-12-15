@@ -97,7 +97,7 @@ exports.postresetpassword = [
 
 
    async (req,res,next)=>{
-      const {email, otp, password,confirmpassword} = req.body;
+      const {email, otp, password} = req.body;
       console.log("Email:", email); // Debugging: Log the email value
  
       const errors = validationResult(req); 
@@ -144,10 +144,32 @@ exports.postresetpassword = [
          user.otpexpiry = undefined;
          await user.save();
 
+      //    const resetdoneemail = {
+      //       to: email,
+      //       from: process.env.FROM_EMAIL,
+      //       subject: "Password Reset Successful - GOSTAY",
+      //       html: `
+      //       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+      //          <h2 style="color: #484848;">Password Reset Successful</h2>
+      //          <p>Dear user,</p>
+      //          <div style="background: #f7f7f7; padding: 15px; border-radius: 5px; margin: 20px 0;">
+      //          <p style="color: #008489; font-size: 18px;">Your GOSTAY account password has been successfully reset.</p>
+      //          <p>You can now login to your account with your new password.</p>
+      //          </div>
+      //          <p>If you did not request this change, please contact our support team immediately.</p>
+      //          <p style="color: #717171; font-size: 12px; margin-top: 20px;">
+      //          This is an automated message, please do not reply to this email.
+      //          </p>
+      //       </div>
+      //       `
+      //    }
+      
+      //  await sendgrid.send(resetdoneemail);
+
            
-         res.redirect("/login")
+       return res.redirect("/login")
 
-
+        
 
       } catch(err){
 
@@ -182,16 +204,31 @@ exports.postforgotpassword=async (req,res,next)=>{
       user.otp = otp;
       user.otpexpiry = Date.now() + 10000 * MILLI_IN_MIN;
       await user.save();
-      const forgotemail ={
+      const forgotemail = {
          to: email,
          from: process.env.FROM_EMAIL,
-         subject: "Password Recovery for Sasta Airbnb",
-         html : `<h3>Here is your OTP ${otp}. valid For 5 mins only</h3>
-         <h3> Enter This password in <a href="http://localhost:3001/resetpassword?email=${email}"> Reset Password </a> page </h3>`
+         subject: "Password Reset Request - GOSTAY",
+         html: `
+         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+            <h2 style="color: #484848;">Password Reset Request</h2>
+            <p>We received a request to reset your GOSTAY account password.</p>
+            <div style="background: #f7f7f7; padding: 15px; border-radius: 5px; margin: 20px 0;">
+            <strong style="font-size: 24px; color: #008489;">${otp}</strong>
+            <p style="margin: 10px 0 0;">This code is valid for 10 minutes only.</p>
+            </div>
+            <p>To complete the password reset process, please enter this code on the 
+            <a href="https://gostay-backend.azurewebsites.net/resetpassword?email=${encodeURIComponent(email)}" 
+               style="color: #008489; text-decoration: none;">reset password page</a>.
+            </p>
+            <p style="color: #717171; font-size: 12px; margin-top: 20px;">
+            If you didn't request this password reset, please ignore this email.
+            </p>
+         </div>
+         `
       };
 
       await sendgrid.send(forgotemail);
-
+      
 
       res.redirect(`/resetpassword?email= ${email}`)
    } 
@@ -246,12 +283,25 @@ exports.postsignup = [
          const user = new User({firstname,lastname,email,password : hashpassword,userType})
          await user.save();
 
-         const welcomeemail ={
+          const welcomeemail = {
             to: email,
             from: process.env.FROM_EMAIL,
-            subject: "Welcome to Airbnb ki copy",
-            html : `<h1>Welcome ${firstname} ${lastname}. Enjoy booking your first home with us</h1>`
-         };
+            subject: "Welcome to GOSTAY!",
+            html: `
+            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+               <h2 style="color: #484848;">Welcome to GOSTAY!</h2>
+               <p>Dear ${firstname} ${lastname},</p>
+               <div style="background: #f7f7f7; padding: 15px; border-radius: 5px; margin: 20px 0;">
+                 <p style="color: #008489; font-size: 18px;">Thank you for joining our community!</p>
+                 <p>Get ready to explore amazing stays and create unforgettable memories with GOSTAY.</p>
+               </div>
+               <p>Start your journey by browsing our selection of unique accommodations.</p>
+               <p style="color: #717171; font-size: 12px; margin-top: 20px;">
+                 We're excited to have you as part of our GOSTAY family!
+               </p>
+            </div>
+            `
+          };
 
          await sendgrid.send(welcomeemail);
 
