@@ -59,10 +59,10 @@ exports.postlogin = async (req,res,next)=>{
 
 
 exports.postlogout = (req,res,next)=>{
-     
    req.session.destroy();
+   
       
-      res.redirect('/login')
+   res.redirect('/login')
    }  
 
 exports.getsignup=(req,res,next)=>{
@@ -281,11 +281,11 @@ exports.postsignup = [
          })
       }
 
-      const {firstname,lastname,email,password,userType} = req.body;
+      const {firstname,lastname,email,password,userType,phonenumber} = req.body;
       
       try {
          const hashpassword = await  bcrypt.hash(password,12);
-         const user = new User({firstname,lastname,email,password : hashpassword,userType})
+         const user = new User({firstname,lastname,email,password : hashpassword,userType, phonenumber})
          await user.save();
 
           const welcomeemail = {
@@ -327,7 +327,8 @@ exports.postsignup = [
                  path: req.path,
                  errormessages: ["Email address already exists"],
                  oldinput: req.body,
-             });
+               }
+            );
          }
          
          // Handle other errors
@@ -337,10 +338,11 @@ exports.postsignup = [
              path: req.path,
              errormessages: [err.message],
              oldinput: req.body,
-         });
+            }
+         );
       }
-      }
-      ];
+   }
+];
       
 
 

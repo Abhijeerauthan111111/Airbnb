@@ -11,7 +11,12 @@ const homeschema = new mongoose.Schema({
     description: String,
     host : { type: mongoose.Schema.Types.ObjectId, 
       ref: 'User', 
-    }
+    },
+    status: {
+      type: String,
+      enum: ['available', 'booked'],
+      default: 'available'
+  }
 
 });
 

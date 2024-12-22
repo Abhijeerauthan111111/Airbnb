@@ -38,6 +38,15 @@
                            class="flex-1 px-4 py-2 font-serif bg-gradient-to-r from-rose-500 to-pink-500 text-white font-semibold rounded-lg hover:from-rose-600 hover:to-pink-600 transition-all duration-300 shadow-md hover:shadow-lg text-center text-xs md:text-base">
                             Edit
                         </a>
+                        <form action="/host/status/<%= home._id %>" method="POST" class="flex-1">
+                            <input type="hidden" name="status" value="<%= home.status === 'available' ? 'booked' : 'available' %>">
+                            <button type="submit" 
+                                class="w-full px-4 py-2 font-serif 
+                                <%= home.status === 'available' ? 'bg-green-500 hover:bg-green-600' : 'bg-red-500 hover:bg-red-600' %> 
+                                text-white font-semibold rounded-lg text-xs md:text-base transition-all duration-300">
+                                <%= home.status === 'available' ? 'Booked' : 'Available' %>
+                            </button>
+                        </form>
 
                         <form action="/host/delete-home/<%= home._id %>" method="POST" class="flex-1" >
                             <button type="submit" class="w-full px-4 py-2 font-serif bg-gradient-to-r from-gray-500 to-gray-500 hover:from-gray-600 hover:to-gray-600 transition-all duration-300 shadow-md hover:shadow-lg text-white font-semibold rounded-lg text-xs md:text-base ">

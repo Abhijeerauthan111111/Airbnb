@@ -21,6 +21,7 @@ const multer = require("multer")   //handle file uploads
 const helmet = require("helmet")    //security header
 const compression = require("compression")
 const morgan = require("morgan")    //HTTP req logger
+const flash = require('express-flash');
 
 // importing local module
 
@@ -29,6 +30,7 @@ const {hostrouter} = require('./routers/hostRouter');
 const {authrouter} = require('./routers/authrouter');
 const rootdirectory = require('./util/pathutil');
 const errorcontroller = require('./controllers/errorcontroller');
+
 
 
 //mongodb session store setup
@@ -70,6 +72,7 @@ const logginstream = fs.createWriteStream(path.join(rootdirectory, 'access.log')
 
 
 //setting up express app config
+
 const app = express();
 
 
@@ -81,7 +84,7 @@ const app = express();
 //                 "script-src": ["'self'", "'unsafe-inline'"],
 //             },
 //         },
-//     })
+//     })........
 // );
 app.use(helmet());  //add security headers
 app.use(compression());   //compress all response
@@ -121,6 +124,8 @@ app.use(session({
     store : sessionstore, 
 }))
 
+app.use(flash())
+
 //route handler
 app.use(storeRouter);
 
@@ -135,6 +140,7 @@ next();
 app.use(hostrouter);
 
 app.use(authrouter);
+
 
 app.use(errorcontroller.get404);
 

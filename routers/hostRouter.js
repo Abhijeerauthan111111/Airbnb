@@ -10,6 +10,8 @@ hostrouter.get('/host/hosthome',hostcontroller.gethosthome);
 hostrouter.get("/host/edit-home/:homeid",hostcontroller.getedithome);
 hostrouter.post("/host/edit-home", hostcontroller.postedithome)
 hostrouter.post("/host/delete-home/:homeid", hostcontroller.postdeletehome)
+hostrouter.post('/host/status/:homeid', hostcontroller.postToggleStatus);
+
 
 
 exports.hostrouter = hostrouter;

@@ -45,7 +45,7 @@ exports.postaddhome = (req,res,next)=>{
     });
     
     };
- 
+
 
 
 
@@ -135,5 +135,29 @@ exports.postdeletehome = (req,res,next)=>{
         console.log("Came to delete homeid ", homeid )
         res.redirect('/host/hosthome') 
     })
+
+
+
+
+
     
 }   
+
+exports.postToggleStatus = async (req, res, next) => {
+    console.log("Toggle status")
+    try {
+        const homeId = req.params.homeid;
+        const newStatus = req.body.status;
+        
+        await Home.findByIdAndUpdate(homeId, {
+            status: newStatus
+        });
+        
+       
+        res.redirect('/host/hosthome');
+    } catch (error) {
+        console.error(error);
+       
+        res.redirect('/host/hosthome');
+    }
+};

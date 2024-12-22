@@ -14,4 +14,6 @@ storeRouter.post('/favourites',storecontroller.postfavourite)
 storeRouter.post('/favourites/delete/:homeid',storecontroller.postdeletefavourite)
 storeRouter.get('/rules/:homeid',storecontroller.getrules)
 
+storeRouter.post('/sendemail/:homeid',storecontroller.postsendEmail)
+
 module.exports = storeRouter;

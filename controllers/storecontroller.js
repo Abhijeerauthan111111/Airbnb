@@ -2,6 +2,9 @@ const User = require('./../models/user')
 const Home = require('./../models/home')
 const path = require('path')
 const rootdirectory = require("../util/pathutil.js")
+const sendgrid = require('@sendgrid/mail');
+const SEND_GRID_KEY =  process.env.SENDGRID_API_KEY 
+sendgrid.setApiKey(SEND_GRID_KEY);
 
 exports.gethomes = (req,res,next)=>{
     Home.find().then((registeredhomes) =>{
@@ -130,3 +133,54 @@ exports.getrules=(req,res,next)=>{
     // res.sendFile(filepath);
     res.download(filepath,rulesfilename.pdf)
 }
+
+
+exports.postsendEmail = async (req, res, next) => {
+    try {
+        const { hostid, userEmail, homeName, phonenumber, firstname, lastname} = req.body;
+        console.log("hostid:", hostid, "User email:", userEmail, "house name:", homeName);
+        console.log("homeid ", req.params.homeid)
+        const host = await User.findById(hostid);
+        if (!host) {
+            throw new Error('Host not found');
+        }
+
+        const emailData = {
+            to: host.email,
+            from: {
+            name: 'GOSTAY',
+            email: process.env.FROM_EMAIL
+            },
+            subject: `New Inquiry for ${homeName}`,
+            html: `
+            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+            <h2 style="color: #484848;">New Booking Inquiry</h2>
+            <p>Dear Property Owner,</p>
+            <p>We are writing to inform you that a potential guest is interested in your property "${homeName}".</p>
+            <div style="background: #f7f7f7; padding: 15px; border-radius: 5px; margin: 20px 0;">
+                <h3 style="color: #008489;">Guest Details:</h3>
+                <p><strong>Name:</strong> ${firstname} ${lastname}</p>
+                <p><strong>Email:</strong> ${userEmail}</p>
+                <p><strong>Phone:</strong> ${phonenumber}</p>
+            </div>
+            <p>Please contact the guest directly to discuss the booking details.</p>
+            <p>Best regards,<br>The GOSTAY Team</p>
+            <p style="color: #717171; font-size: 12px; margin-top: 20px;">
+                This is an automated message. Please do not reply to this email.
+            </p>
+            </div>
+            `
+        };
+        
+        await sendgrid.send(emailData);
+        
+        req.flash('success', 'Email sent to host successfully!');
+        res.redirect(`/homes/${req.params.homeid}`);
+    
+
+    } catch (error) {
+        console.error('Error:', error);
+        req.flash('error', 'Failed to send email');
+        res.redirect(`/homes/${req.params.homeid}`);
+    }
+};

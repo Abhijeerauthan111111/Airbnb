@@ -1,6 +1,6 @@
 <%- include('../partials/head.ejs') %>
 </head>
-<body class="min-h-screen bg-gradient-to-tr from-gray-100 to-gray-200 text-gray-900">
+<body class="min-h-screen bg-gradient-to-b from-slate-50 to-slate-100 text-gray-900">
       
      <%- include('../partials/nav.ejs')%>
 
@@ -17,11 +17,18 @@
             <% homes.forEach(home => { %>
                 <div class="bg-white backdrop-blur-sm bg-opacity-90 rounded-2xl overflow-hidden hover:shadow-2xl transition-all duration-300 flex flex-col p-6 border border-gray-200">
                     <a href="/homes/<%= home._id %>" >
-                    <div class="relative group">
-                        <img src="<%= home.photourl %>" alt="Home Image" 
-                             class="w-full h-64 object-cover mb-4 rounded-xl hover:scale-105 transition-transform duration-300">
-                        <div class="absolute inset-0 bg-black bg-opacity-20 opacity-0 group-hover:opacity-100 transition-opacity rounded-xl"></div>
-                    </div>
+                        <div class="overflow-hidden rounded-2xl mb-6">
+                            <% if (home.status === 'booked') { %>  
+                                <div class="relative">
+                                    <img src="<%= home.photourl %>" alt="Home Image" class="w-full h-64 object-cover hover:scale-105 transition-transform duration-700 filter grayscale">
+                                    <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+                                        <span class="text-white  md:text-2xl text-l animate-pulse font-bold">NOT AVAILABLE</span>
+                                    </div>
+                                </div>
+                            <% } else { %>
+                                <img src="<%= home.photourl %>" alt="Home Image" class="w-full h-64 object-cover hover:scale-105 transition-transform duration-700">
+                            <% } %>
+                        </div>
 
                     <h1 class="text-2xl font-bold text-gray-800 mb-3 text-left hover:text-rose-600 transition-colors">
                         <%= home.housename %>
@@ -38,11 +45,11 @@
                     </h2>
 
                     <div class="flex justify-between items-center mt-auto pt-4 border-t border-gray-100">
-                        <p class="text-2xl font-bold text-rose-600">₹<%= home.price %>/Day</p>
-                        <div class="flex items-center ">
+                        <p class="md:text-3xl text-2xl font-bold text-blue-600">₹<%= home.price %><span class="md:text-lg text-base font-normal text-gray-500">/Month</span></p>
+                        <div class="flex items-end ">
                             <%- include('../partials/add_to_fav',{home:home}) %> 
                             <a href="/homes/<%= home._id %>" 
-                               class="font-serif text-xs md:text-lg bg-gradient-to-r from-rose-500 to-pink-500 text-white font-semibold rounded-lg ml-4 px-4 py-2 hover:from-rose-600 hover:to-pink-600 transition-all duration-300 shadow-md hover:shadow-lg">
+                               class="font-serif text-xs md:text-base bg-gradient-to-r from-rose-500 to-pink-500 text-white font-semibold rounded-lg ml-4 px-4 py-2 hover:from-rose-600 hover:to-pink-600 transition-all duration-300 shadow-md hover:shadow-lg">
                                View Details
                             </a>
                         </div>

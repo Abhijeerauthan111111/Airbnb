@@ -1,0 +1,12 @@
+<form action="/sendemail/<%= home._id %>" method="POST">
+    <input type="hidden" name="hostid" value="<%= home.host %>">
+    <input type="hidden" name="userEmail" value="<%= user.email %>">
+    <input type="hidden" name="phonenumber" value="<%= user.phonenumber %>">
+    <input type="hidden" name="firstname" value="<%= user.firstname %>">
+    <input type="hidden" name="lastname" value="<%= user.lastname %>">
+    <input type="hidden" name="homeName" value="<%= home.housename %>">
+    <input type="hidden" name="homeid" value="<%= home._id %>">
+    <button type="submit" class="font-serif text-xs md:text-lg bg-gradient-to-r from-rose-500 to-pink-500 text-white font-semibold rounded-lg ml-4 px-4 py-2 hover:from-rose-600 hover:to-pink-600 transition-all duration-300 shadow-md hover:shadow-lg">
+        Contact
+    </button>
+</form>
