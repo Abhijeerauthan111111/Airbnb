@@ -11,7 +11,7 @@ exports.gethomes = (req,res,next)=>{
     
         res.render('store/homes',{
             homes:registeredhomes, 
-            pagetitle:'Hamara Airbnb',
+            pagetitle:'Go Stay',
             isLoggedIn: req.session.isLoggedIn,
             user: req.session.user})
     });
@@ -25,7 +25,7 @@ exports.getindex = (req,res,next)=>{
     
         res.render('store/index',{
             homes:registeredhomes, 
-            pagetitle:'Hamara Airbnb',
+            pagetitle:'Go Stay',
             isLoggedIn: req.session.isLoggedIn,
             user: req.session.user})
     });
