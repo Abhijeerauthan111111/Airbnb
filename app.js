@@ -1,4 +1,4 @@
-const ENV = process.env.NODE_ENV || "development";
+const ENV = process.env.NODE_ENV || "production";
 
 require("dotenv").config(
     {
@@ -88,7 +88,7 @@ const app = express();
 // );
 app.use(helmet());  //add security headers
 app.use(compression());   //compress all response
-app.use(morgan('combined',{stream : logginstream }))   //log http req
+// app.use(morgan('combined',{stream : logginstream }))   //log http req
 
 //view engine setup
 app.set('view engine','ejs');   //ejs as template engine
@@ -146,7 +146,7 @@ app.use(errorcontroller.get404);
 
 
 
-
+ 
 
  
 // setting up port

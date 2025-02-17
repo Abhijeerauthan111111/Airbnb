@@ -66,7 +66,7 @@ exports.getedithome = (req,res,next)=>{
         const homeid = req.params.homeid;
         const editing = req.query.editing ==="true";
         if(!editing){
-            console.log("EDiting flag not set properly")
+            console.log("Editing flag not set properly")
             return res.redirect("/hosthome")
         }
 

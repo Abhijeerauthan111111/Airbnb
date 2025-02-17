@@ -45,7 +45,7 @@
                     </h2>
 
                     <div class="flex justify-between items-center mt-auto pt-4 border-t border-gray-100">
-                        <p class="md:text-3xl text-2xl font-bold text-blue-600">₹<%= home.price %><span class="md:text-lg text-base font-normal text-gray-500">/Month</span></p>
+                        <p class="md:text-3xl text-2xl font-bold text-blue-600">₹<%= home.price %><span class="md:text-lg text-base font-normal text-gray-500">/Day</span></p>
                         <div class="flex items-end ">
                             <%- include('../partials/add_to_fav',{home:home}) %> 
                             <a href="/homes/<%= home._id %>" 
